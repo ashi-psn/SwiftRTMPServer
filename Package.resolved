@@ -1,0 +1,32 @@
+{
+  "pins" : [
+    {
+      "identity" : "swift-atomics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-atomics.git",
+      "state" : {
+        "revision" : "919eb1d83e02121cdb434c7bfc1f0c66ef17febe",
+        "version" : "1.0.2"
+      }
+    },
+    {
+      "identity" : "swift-nio",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-nio.git",
+      "state" : {
+        "revision" : "b4e0a274f7f34210e97e2f2c50ab02a10b549250",
+        "version" : "2.41.1"
+      }
+    },
+    {
+      "identity" : "swiftybit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ashi-psn/SwiftyBit",
+      "state" : {
+        "branch" : "main",
+        "revision" : "6b9e621b2f3963b3e94e145ef1006a8bc579f4ff"
+      }
+    }
+  ],
+  "version" : 2
+}

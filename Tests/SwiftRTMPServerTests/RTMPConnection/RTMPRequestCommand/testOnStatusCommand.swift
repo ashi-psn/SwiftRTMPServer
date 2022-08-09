@@ -1,0 +1,156 @@
+import XCTest
+@testable import SwiftRTMPServer
+
+class testOnStatusCommand: XCTestCase {
+    
+    let testByte: [UInt8] = [
+        0x05,
+        0x00,
+        0x00,
+        0x00,
+        
+        0x00,
+        0x00,
+        0x69,
+        0x14,
+        0x01,
+        0x00,
+        0x00,
+        0x00,
+        
+        0x02,
+        0x00,
+        0x08,
+        0x6f,
+        0x6e,
+        0x53,
+        0x74,
+        0x61,
+        
+        0x74,
+        0x75,
+        0x73,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x05,
+        0x03,
+        0x00,
+        0x05,
+        
+        0x6c,
+        0x65,
+        0x76,
+        0x65,
+        0x6c,
+        0x02,
+        0x00,
+        0x06,
+        
+        0x73,
+        0x74,
+        0x61,
+        0x74,
+        0x75,
+        0x73,
+        0x00,
+        0x04,
+        
+        0x63,
+        0x6f,
+        0x64,
+        0x65,
+        0x02,
+        0x00,
+        0x17,
+        0x4e,
+        
+        0x65,
+        0x74,
+        0x53,
+        0x74,
+        0x72,
+        0x65,
+        0x61,
+        0x6d,
+        
+        0x2e,
+        0x50,
+        0x75,
+        0x62,
+        0x6c,
+        0x69,
+        0x73,
+        0x68,
+        
+        0x2e,
+        0x53,
+        0x74,
+        0x61,
+        0x72,
+        0x74,
+        0x00,
+        0x0b,
+        
+        0x64,
+        0x65,
+        0x73,
+        0x63,
+        0x72,
+        0x69,
+        0x70,
+        0x74,
+        
+        0x69,
+        0x6f,
+        0x6e,
+        0x02,
+        0x00,
+        0x10,
+        0x53,
+        0x74,
+        
+        0x61,
+        0x72,
+        0x74,
+        0x20,
+        0x70,
+        0x75,
+        0x62,
+        0x6c,
+        
+        0x69,
+        0x73,
+        0x68,
+        0x69,
+        0x6e,
+        0x67,
+        0x00,
+        0x00,
+        
+        0x09
+        
+    ]
+
+    override func setUpWithError() throws {
+    }
+    
+    
+    func testCreate() {
+        let command = OnStatusCommand()
+        XCTAssertEqual(command.format, .zero)
+    }
+    
+    func testToData() {
+        let testData = testByte.data
+        let body = OnStatusCommand()
+        XCTAssertEqual(body.toData(), testData)
+    }
+}
