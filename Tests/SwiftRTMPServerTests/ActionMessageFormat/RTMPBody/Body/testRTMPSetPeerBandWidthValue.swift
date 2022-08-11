@@ -8,7 +8,7 @@ class testRTMPSetPeerBandWidthValue: XCTestCase {
         0x4c,
         0x4b,
         0x40,
-        02
+        0x02
     ]
 
     override func setUpWithError() throws {

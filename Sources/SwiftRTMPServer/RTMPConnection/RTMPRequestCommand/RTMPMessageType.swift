@@ -6,6 +6,7 @@ enum RTMPMessageType: UInt8 {
     case acknowledgemtn = 0x03
     case windowAcknowledgement = 0x05
     case setPeerBandWidth = 0x06
+    case videoData = 0x09
     case amf0data = 0x12
     case amf0command = 0x14
 }

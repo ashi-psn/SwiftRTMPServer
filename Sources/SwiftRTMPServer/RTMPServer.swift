@@ -3,12 +3,13 @@ import NIOCore
 
 open class RTMPServer {
     
-    public enum HandshakeState {
+    public enum ConnectionState {
         case unconnected
         case sendS0
         case sendS1
         case sendS2
         case connected
+        case connectionEstablish
     }
     
     private let eventloopGroup = MultiThreadedEventLoopGroup(numberOfThreads: System.coreCount)

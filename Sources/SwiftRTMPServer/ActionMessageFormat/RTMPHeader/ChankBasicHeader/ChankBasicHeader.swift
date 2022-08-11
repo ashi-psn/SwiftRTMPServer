@@ -36,7 +36,8 @@ struct ChankBasicHeader: RTMPDataCreateConvertible {
         return ChankBasicHeader(
             basicHeaderType: chankStreamType,
             fmt: fmtType,
-            chankStreamId: chankStreamId)
+            chankStreamId: chankStreamId
+        )
     }
     
     private static func getFMTType(data: Data) -> FormatType {

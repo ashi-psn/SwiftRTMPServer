@@ -4,17 +4,18 @@ import SwiftyBit
 
 final class RTMPChannelHandler: ChannelInboundHandler {
     
-    var connectionState: RTMPServer.HandshakeState = .unconnected
+    var connectionState: RTMPServer.ConnectionState = .unconnected
     
     var c1: C1?
     
     public typealias InboundIn = ByteBuffer
     public typealias OutboundOut = ByteBuffer
     
-    let streamHandler = RTMPConnectionHandler()
+    let connectionHandler = RTMPConnectionHandler()
+    let streamHandler = RTMPDataStreamHandler()
     
     init() {
-        streamHandler.delegate = self
+        connectionHandler.delegate = self
     }
 
     public func channelRead(context: ChannelHandlerContext, data: NIOAny) {
@@ -76,8 +77,6 @@ final class RTMPChannelHandler: ChannelInboundHandler {
             //C2とconnectが同時に来る場合がある
             if data.count > 1536 {
                 //C2とそれ以外に分割する
-//                let c2Bytes = responseData.bytes[0..<1536]
-//                let c2 = C2(from: S1())
                 var mutableData = data
                 let c2Byte = mutableData.removeByteFromFirst(to: 1536)
                 self.onReceiveC2(data: c2Byte, context: context)
@@ -96,6 +95,9 @@ final class RTMPChannelHandler: ChannelInboundHandler {
             }
             
         case .connected:
+            connectionHandler.handle(&data, context: context)
+            
+        case .connectionEstablish:
             streamHandler.handle(&data, context: context)
         }
     }
@@ -177,6 +179,11 @@ extension RTMPChannelHandler: HandShakableSendable {
 }
 
 extension RTMPChannelHandler: RTMPConnectionHandleDelegate {
+    
+    func changeConnectionState(state: RTMPServer.ConnectionState) {
+        self.connectionState = state
+    }
+    
     
     func sendData(data: Data, context: ChannelHandlerContext) {
         let writeBuffer = ByteBuffer(bytes: data)

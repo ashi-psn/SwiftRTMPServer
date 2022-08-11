@@ -3,7 +3,7 @@ import NIO
 
 protocol HandShakableRecevable {
     
-    var connectionState: RTMPServer.HandshakeState { get }
+    var connectionState: RTMPServer.ConnectionState { get }
     
     func onReceiveC0(data: Data, context: ChannelHandlerContext)
 

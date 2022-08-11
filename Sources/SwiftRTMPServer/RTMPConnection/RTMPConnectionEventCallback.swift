@@ -25,4 +25,6 @@ protocol RTMPConnectionEventCallback {
     
     func onReceivePublish(context: ChannelHandlerContext)
     
+    func onReceiveVideoData(context: ChannelHandlerContext)
+    
 }

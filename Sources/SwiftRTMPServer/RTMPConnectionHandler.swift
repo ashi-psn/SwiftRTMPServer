@@ -4,6 +4,7 @@ import NIO
 
 protocol RTMPConnectionHandleDelegate {
     func sendData(data: Data, context: ChannelHandlerContext)
+    func changeConnectionState(state: RTMPServer.ConnectionState)
 }
 
 class RTMPConnectionHandler {
@@ -12,8 +13,6 @@ class RTMPConnectionHandler {
     
     func handle(_ data: inout Data, context: ChannelHandlerContext) {
         
-        data.outputHex()
-        print("===========")
         RTMPConnectionResponseCreater.create(data: &data) { stream in
             
             switch stream.header.basicHeader.fmt {
@@ -41,6 +40,8 @@ class RTMPConnectionHandler {
                         
                     case .acknowledgemtn:
                         onReceiveAcknowledgemtn(context: context)
+                    case .videoData:
+                        onReceiveVideoData(context: context)
                     }
                 } else {
                     onReceiveCommand(context: context, stream: stream)
@@ -81,6 +82,7 @@ extension RTMPConnectionHandler: RTMPConnectionEventCallback {
             delegate?.sendData(data: createStreamCommand.toData(), context: context)
             
         case "publish":
+            delegate?.changeConnectionState(state: .connectionEstablish)
             let command = OnStatusCommand().toData()
             delegate?.sendData(data: command, context: context)
             
@@ -131,7 +133,12 @@ extension RTMPConnectionHandler: RTMPConnectionEventCallback {
     }
     
     func onReceivePublish(context: ChannelHandlerContext) {
+        delegate?.changeConnectionState(state: .connectionEstablish)
         let command = OnStatusCommand()
         delegate?.sendData(data: command.toData(), context: context)
+    }
+    
+    func onReceiveVideoData(context: ChannelHandlerContext) {
+        
     }
 }

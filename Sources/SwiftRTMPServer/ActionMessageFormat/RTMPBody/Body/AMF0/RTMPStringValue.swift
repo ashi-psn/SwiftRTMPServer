@@ -25,7 +25,6 @@ struct RTMPStringValue: RTMPAMF0ObjectConvertible {
         let messageValueData = data
             .removeByteFromFirst(to: Int(messageLength))
         
-        // TODO: asciiでrtmp://localhost:1Ã935/livがパース失敗する
         let message = String(data: messageValueData, encoding: .utf8) ?? ""
         
         return RTMPStringValue(value: message)

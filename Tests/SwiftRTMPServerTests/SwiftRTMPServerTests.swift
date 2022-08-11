@@ -6,7 +6,7 @@ final class SwiftRTMPServerTests: XCTestCase {
 
 //        let expectation = XCTestExpectation()
 
-//        let server = RTMPServer(configuration: RTMPConfiguration())
-//        server.listhen()
+        let server = RTMPServer(configuration: RTMPConfiguration())
+        server.listhen()
     }
 }
